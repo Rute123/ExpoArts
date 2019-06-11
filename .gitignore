@@ -125,3 +125,6 @@ crashlytics-build.properties
 
 # Ignore Rider fold
 .idea
+Assets/GoogleARCore/SDK/InstantPreview/Scripts/InstantPreview.apk.meta
+Assets/Images/Artes.ai.meta
+Assets/Plugins/Editor.meta
