@@ -229,6 +229,19 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1870062908, guid: 1b4c975e50d717842bbef3661f7f66c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130536047901837275, guid: 1b4c975e50d717842bbef3661f7f66c7,
+        type: 3}
+      propertyPath: m_DirectAudioMutes.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870062910, guid: 1b4c975e50d717842bbef3661f7f66c7, type: 3}
+      propertyPath: Spatialize
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b4c975e50d717842bbef3661f7f66c7, type: 3}
 --- !u!4 &2886668802972960641 stripped
