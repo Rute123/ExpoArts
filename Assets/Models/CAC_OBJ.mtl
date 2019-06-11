@@ -1,0 +1,188 @@
+# Blender MTL File: 'CAC_Completo_ok.blend'
+# Material Count: 18
+
+newmtl Concreto
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\TEXTURAS\Seamless_concrete_texture_2_by_lendrick.png
+
+newmtl Concreto_NONE
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\rutem\\GitHub\\ExpoArts\\Assets\\Google Drive\\1-UFPE\\EG465- TÓPICOS EM MODELAGEM 3D\\CAC 3D\\TEXTURAS\\Seamless_concrete_texture_2_by_lendrick.png
+
+newmtl Concreto_Seamless_concrete_texture_2_by_lendrick.png.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\TEXTURAS\Seamless_concrete_texture_2_by_lendrick.png
+
+newmtl Concreto_Seamless_concrete_texture_2_by_lendrick.png.002
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\TEXTURAS\Seamless_concrete_texture_2_by_lendrick.png
+
+newmtl Concreto_lightmap.002
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\rutem\\GitHub\\ExpoArts\\Assets\\Google Drive\\1-UFPE\\EG465- TÓPICOS EM MODELAGEM 3D\\CAC 3D\\TEXTURAS\\Seamless_concrete_texture_2_by_lendrick.png
+
+newmtl Metal_Steel_Textured.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\TEXTURAS\chao preto.jpg
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl None_NONE
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl None_Seamless_concrete_texture_2_by_lendrick.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\TEXTURAS\Seamless_concrete_texture_2_by_lendrick.png
+
+newmtl None_chao_preto.jpg
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\TEXTURAS\chao preto.jpg
+
+newmtl __Concrete_Aggregate_Smoke_1
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\TEXTURAS\Seamless_concrete_texture_2_by_lendrick.png
+
+newmtl __auto_.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.639216 0.639216 0.639216
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+
+newmtl __auto_3.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+
+newmtl paredes
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\rutem\\GitHub\\ExpoArts\\Assets\\Google Drive\\1-UFPE\\EG465- TÓPICOS EM MODELAGEM 3D\\CAC 3D\\BLENDER FILES\\tijoloBranco.png
+
+newmtl paredes_Untitled.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\rutem\\GitHub\\ExpoArts\\Assets\\Google Drive\\1-UFPE\\EG465- TÓPICOS EM MODELAGEM 3D\\CAC 3D\\BLENDER FILES\\tijoloBranco.png
+
+newmtl paredes_tijolo.jpg
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\Documents\tijolo.jpg
+
+newmtl paredes_tijoloBranco.png
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\BLENDER FILES\TEXTURAS\tijoloBranco.png
+
+newmtl paredes_tijoloBranco.png.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\rutem\GitHub\ExpoArts\Assets\Google Drive\1-UFPE\EG465- TÓPICOS EM MODELAGEM 3D\CAC 3D\Grupo 4\TEXTURAS\tijoloBranco.png
