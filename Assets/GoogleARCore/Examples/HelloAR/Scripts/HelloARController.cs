@@ -18,6 +18,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using UnityEngine.UI;
+
 namespace GoogleARCore.Examples.HelloAR
 {
     using System.Collections.Generic;
@@ -63,6 +65,14 @@ namespace GoogleARCore.Examples.HelloAR
         /// </summary>
         private bool m_IsQuitting = false;
 
+        private bool _portalCreated = false;
+
+        public GameObject preview;
+
+        private GameObject _instance;
+
+        public Text text;
+        
         public void SetPrefab(GameObject prefab)
         {
             SpawnPrefab = prefab;
@@ -74,6 +84,35 @@ namespace GoogleARCore.Examples.HelloAR
         public void Update()
         {
             _UpdateApplicationLifecycle();
+            
+            text.text =  $"Camera {FirstPersonCamera.transform.position}";
+            if (_portalCreated)
+            {
+                var camera = FirstPersonCamera.transform;
+                var ray = new Ray(camera.position, camera.forward);
+                if (Physics.Raycast(ray, out var rayCastHit, 500))
+                {
+                    if (_instance == null)
+                    {
+                        _instance = Instantiate(preview, rayCastHit.point, Quaternion.identity);
+                    }
+                    _instance.SetActive(true);
+                    var parentTransform = rayCastHit.collider.transform;
+                    _instance.transform.right = rayCastHit.normal;
+                    _instance.transform.position = rayCastHit.point;
+                    //preview.transform.parent = parentTransform;
+//                    _instance.transform.rotation = parentTransform.rotation;
+                    
+                    text.text += $"\nCamera: {camera.position}\nEnable {_instance.name} {parentTransform.gameObject.name}" +
+                                 $" {_instance.transform.localScale} \nPosition: {_instance.transform.position} {_instance.transform.rotation}";
+                }
+                else if(_instance!=null)
+                {
+                    _instance.SetActive(false);
+                    text.text += $"\nCamera: {camera.position}\nDisable";
+                }
+
+            }
 
             // If the player has not touched the screen, we are done with this update.
             Touch touch;
@@ -93,7 +132,7 @@ namespace GoogleARCore.Examples.HelloAR
             TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
                 TrackableHitFlags.FeaturePointWithSurfaceNormal;
 
-            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
+            if (!_portalCreated && Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
             {
                 // Use hit pose and camera pose to check if hittest is from the
                 // back of the plane, if it is, no need to create the anchor.
@@ -107,28 +146,24 @@ namespace GoogleARCore.Examples.HelloAR
                 {
                     // Choose the Andy model for the Trackable that got hit.
                     var prefab = SpawnPrefab;
-//                    if (hit.Trackable is FeaturePoint)
-//                    {
-//                        prefab = AndyPointPrefab;
-//                    }
-//                    else
-//                    {
-//                        prefab = AndyPlanePrefab;
-//                    }
+                    if (hit.Trackable is FeaturePoint)
+                        return;
+
 
                     // Instantiate Andy model at the hit pose.
-                    var andyObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                    var portal = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
 
                     // Compensate for the hitPose rotation facing away from the raycast (i.e.
                     // camera).
-                    andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
+                    portal.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
 
                     // Create an anchor to allow ARCore to track the hitpoint as understanding of
                     // the physical world evolves.
                     var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
                     // Make Andy model a child of the anchor.
-                    andyObject.transform.parent = anchor.transform;
+                    portal.transform.parent = anchor.transform;
+                    _portalCreated = true;
                 }
             }
         }
