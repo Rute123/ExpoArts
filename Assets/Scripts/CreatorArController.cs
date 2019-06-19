@@ -80,7 +80,6 @@ namespace Scripts
 
         private ArCoreLifeCycleManager _arCoreLifeCycleManager;
 
-        public Text text;
 
         private void Awake()
         {
@@ -93,21 +92,14 @@ namespace Scripts
             
             _arCoreLifeCycleManager.UpdateApplicationLifecycle();
 
-            text.text = "Selecting image";
             if (_selectingImage) return;
-
-            text.text = "selected image";
 
             if (_portalCreated)
             {
-                text.text = "portal created";
                 if (_instance == null || !_imageReady) return;
                 PreviewArtPosition();
-                text.text = "preview";
                 return;
             }
-
-            text.text = "wtf man";
 
             // If the player has not touched the screen, we are done with this update.
             Touch touch;
@@ -173,7 +165,6 @@ namespace Scripts
             _instance.transform.forward = rayCastHit.normal;
             _instance.transform.position = rayCastHit.point;
 //            _instance.transform.parent = parentTransform;
-            text.text = $"{_instance.transform.position}";
         }
 
         public void SelectImage()
@@ -201,7 +192,6 @@ namespace Scripts
                     new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 _instance.transform.localScale = _instance.transform.localScale / 25f;
 
-                text.color = Color.red;
                 _imageReady = true;
                 _selectingImage = false;
             }, "Select a PNG image", "image/png", maxSize);
