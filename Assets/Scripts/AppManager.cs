@@ -11,6 +11,7 @@ public class AppManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject creatorMenu;
     [SerializeField] private GameObject planeDiscovery;
+    [SerializeField] private GameObject visualizerHud;
     
     // Start is called before the first frame update
     private void Start()
@@ -20,6 +21,7 @@ public class AppManager : MonoBehaviour
         mainMenu.SetActive(true);
         creatorMenu.SetActive(false);
         planeDiscovery.SetActive(false);
+        visualizerHud.SetActive(false);
     }
 
     private void HideLogo()
@@ -30,6 +32,8 @@ public class AppManager : MonoBehaviour
     public void EnableVisualizationMode()
     {
         planeDiscovery.SetActive(true);
+        visualizerHud.SetActive(true);
+        mainMenu.SetActive(false);
     }
 
     public void EnableCreateMode()
