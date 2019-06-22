@@ -19,6 +19,7 @@
 //-----------------------------------------------------------------------
 
 
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine.UI;
 
@@ -80,10 +81,23 @@ namespace Scripts
 
         private ArCoreLifeCycleManager _arCoreLifeCycleManager;
 
+        [SerializeField] private GameObject planeDiscovery;
+
 
         private void Awake()
         {
             _arCoreLifeCycleManager = GetComponent<ArCoreLifeCycleManager>();
+
+        }
+        
+        private void OnEnable()
+        {
+            planeDiscovery.SetActive(true);
+        }
+
+        private void OnDisable()
+        {
+            planeDiscovery.SetActive(false);
         }
 
 

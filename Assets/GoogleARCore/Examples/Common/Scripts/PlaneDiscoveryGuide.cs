@@ -222,16 +222,16 @@ namespace GoogleARCore.Examples.Common
                 switch (Session.LostTrackingReason)
                 {
                     case LostTrackingReason.InsufficientLight:
-                        m_SnackBarText.text = "Too dark. Try moving to a well-lit area.";
+                        m_SnackBarText.text = "Muito escuro. Tente se mover para uma área bem iluminada.";
                         break;
                     case LostTrackingReason.InsufficientFeatures:
-                        m_SnackBarText.text = "Aim device at a surface with more texture or color.";
+                        m_SnackBarText.text = "Aponte o dispositivo para uma superfície com mais textura ou cor.";
                         break;
                     case LostTrackingReason.ExcessiveMotion:
-                        m_SnackBarText.text = "Moving too fast. Slow down.";
+                        m_SnackBarText.text = "Movendo muito rápido. Desacelere.";
                         break;
                     default:
-                        m_SnackBarText.text = "Motion tracking is lost.";
+                        m_SnackBarText.text = "O rastreamento de movimento foi perdido.";
                         break;
                 }
 
@@ -263,12 +263,12 @@ namespace GoogleARCore.Examples.Common
 
                 if (m_NotDetectedPlaneElapsed > OfferDetailedInstructionsDelay)
                 {
-                    m_SnackBarText.text = "Need Help?";
+                    m_SnackBarText.text = "Precisa de ajuda?";
                     m_OpenButton.SetActive(true);
                 }
                 else
                 {
-                    m_SnackBarText.text = "Point your camera to where you want to place an object.";
+                    m_SnackBarText.text = "Aponte sua câmera para onde você deseja colocar um objeto.";
                     m_OpenButton.SetActive(false);
                 }
             }

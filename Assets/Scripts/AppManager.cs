@@ -10,18 +10,16 @@ public class AppManager : MonoBehaviour
     [SerializeField] private GameObject logo;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject creatorMenu;
-    [SerializeField] private GameObject planeDiscovery;
+    [SerializeField] private GameObject creatorController;
+    [SerializeField] private GameObject visualizerController;
     [SerializeField] private GameObject visualizerHud;
     
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         logo.SetActive(true);
         Invoke(nameof(HideLogo), 3);
-        mainMenu.SetActive(true);
-        creatorMenu.SetActive(false);
-        planeDiscovery.SetActive(false);
-        visualizerHud.SetActive(false);
+        EnableMainMenu();
     }
 
     private void HideLogo()
@@ -29,18 +27,29 @@ public class AppManager : MonoBehaviour
         logo.SetActive(false);
     }
 
+    public void EnableMainMenu()
+    {
+        mainMenu.SetActive(true);
+        creatorMenu.SetActive(false);
+        creatorController.SetActive(false);
+        visualizerHud.SetActive(false);
+        visualizerController.SetActive(false);
+    }
+
     public void EnableVisualizationMode()
     {
-        planeDiscovery.SetActive(true);
+        creatorController.SetActive(false);
         visualizerHud.SetActive(true);
         mainMenu.SetActive(false);
+        visualizerController.SetActive(true);
     }
 
     public void EnableCreateMode()
     {
-        planeDiscovery.SetActive(true);
+        creatorController.SetActive(true);
         mainMenu.SetActive(false);
         creatorMenu.SetActive(true);
+        visualizerController.SetActive(false);
     }
 
 }
