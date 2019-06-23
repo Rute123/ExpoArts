@@ -20,6 +20,8 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine.UI;
 
@@ -62,6 +64,7 @@ namespace Scripts
         private const float k_ModelRotation = 0.0f;
 
         private bool _portalCreated = false;
+        [SerializeField] private GameObject clickOnFloorTutorial;
         
         public void SetPrefab(GameObject prefab)
         {
@@ -71,6 +74,8 @@ namespace Scripts
         private ArCoreLifeCycleManager _arCoreLifeCycleManager;
 
         [SerializeField] private GameObject planeDiscovery;
+        [SerializeField] private RawImage pointDownTutorial;
+        [SerializeField] private GameObject moreInfo;
 
 
         private void Awake()
@@ -89,12 +94,11 @@ namespace Scripts
             planeDiscovery.SetActive(false);
         }
 
-
         public void Update()
         {
             
             _arCoreLifeCycleManager.UpdateApplicationLifecycle();
-
+            clickOnFloorTutorial.SetActive(!_portalCreated && !moreInfo.activeSelf && !pointDownTutorial.IsActive());
             if (_portalCreated) return;
 
             // If the player has not touched the screen, we are done with this update.

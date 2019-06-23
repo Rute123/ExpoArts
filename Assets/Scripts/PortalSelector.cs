@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class PortalSelector : MonoBehaviour, IPointerClickHandler
 {
     public Text PortalName { get; set; }
-    public Button SelectButton { get; set; }
     public PortalListController PortalListController;
 
     public void OnPointerClick(PointerEventData eventData)

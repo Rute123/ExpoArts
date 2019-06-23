@@ -46,7 +46,7 @@ public class PortalListController : MonoBehaviour
             portals.Add(instantiatedObject);
             instantiatedObject.name = $"Portal do CAC de número: {i + 1}";
             instantiatedObject.PortalName = selectedPortalNameText;
-            instantiatedObject.SelectButton = portalSelectorButton;
+            instantiatedObject.PortalListController = this;
         }
         return portals;
     }
