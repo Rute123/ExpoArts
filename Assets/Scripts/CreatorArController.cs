@@ -165,7 +165,22 @@ namespace Scripts
                     // Make Andy model a child of the anchor.
                     portal.transform.parent = anchor.transform;
                     _portalCreated = true;
+                    LoadPictures(portal);
                 }
+            }
+        }
+
+        private void LoadPictures(GameObject portal)
+        {
+            var gameData = FindObjectOfType<GameDataManager>().GameData;
+
+            foreach (var picture in gameData.pictures)
+            {
+                var pictureInstance = Instantiate(preview);
+                pictureInstance.transform.position = picture.GetPosition();
+                var spriteRenderer = pictureInstance.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = picture.Sprite;
+                pictureInstance.transform.localScale = pictureInstance.transform.localScale / 25f;
             }
         }
 
@@ -198,6 +213,11 @@ namespace Scripts
                     return;
                 }
 
+                if (_instance != null)
+                {
+                    FindObjectOfType<GameDataManager>().AddImage(_instance.transform.localScale,
+                        _instance.GetComponent<SpriteRenderer>().sprite);
+                }
                 _instance = Instantiate(preview);
                 _instance.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
                 _instance.transform.forward = Camera.main.transform.forward;
