@@ -116,7 +116,7 @@ namespace GoogleARCore.Examples.Common
         /// The cached feature points.
         /// </summary>
         private LinkedList<PointInfo> m_CachedPoints;
-
+        
         /// <summary>
         /// The Unity Start() method.
         /// </summary>
@@ -197,6 +197,12 @@ namespace GoogleARCore.Examples.Common
             m_CachedPoints.Clear();
             m_Mesh.Clear();
         }
+
+        private void addBBoxPoint(Vector3 point)
+        {
+            
+        }
+
 
         /// <summary>
         /// Updates the screen resolution.
