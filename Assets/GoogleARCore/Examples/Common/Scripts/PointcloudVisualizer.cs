@@ -17,6 +17,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using UnityEngine.UI;
+
 namespace GoogleARCore.Examples.Common
 {
     using System.Collections.Generic;
@@ -41,7 +43,7 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         [Tooltip("Whether to enable the pop animation for the feature points.")]
         public bool EnablePopAnimation = true;
-
+        
         /// <summary>
         /// The maximum number of points to add per frame.
         /// </summary>
@@ -82,6 +84,8 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         private MeshRenderer m_MeshRenderer;
 
+        private BoundingBox boudingBox;
+        
         /// <summary>
         /// The unique identifier for the shader _ScreenWidth property.
         /// </summary>
@@ -143,6 +147,9 @@ namespace GoogleARCore.Examples.Common
             m_MeshRenderer.SetPropertyBlock(m_PropertyBlock);
 
             m_CachedPoints = new LinkedList<PointInfo>();
+            
+            boudingBox = new BoundingBox();
+            
         }
 
         /// <summary>
@@ -196,11 +203,6 @@ namespace GoogleARCore.Examples.Common
         {
             m_CachedPoints.Clear();
             m_Mesh.Clear();
-        }
-
-        private void addBBoxPoint(Vector3 point)
-        {
-            
         }
 
 
@@ -262,6 +264,7 @@ namespace GoogleARCore.Examples.Common
             }
         }
 
+        
         /// <summary>
         /// Adds the specified point to cache.
         /// </summary>
@@ -275,6 +278,10 @@ namespace GoogleARCore.Examples.Common
 
             m_CachedPoints.AddLast(new PointInfo(point, new Vector2(m_DefaultSize, m_DefaultSize),
                                                  Time.time));
+            boudingBox.addPoint(new Point(point));
+            GameObject.FindWithTag("Text").GetComponent<Text>().text = $"{boudingBox.min.ToString()}\n" +
+                                                                       $"{boudingBox.max.ToString()}\n" +
+                                                                       $"{boudingBox.getSubPlane().ToString()}\n";
         }
 
         /// <summary>
@@ -312,6 +319,7 @@ namespace GoogleARCore.Examples.Common
 
                 pointNode.Value = new PointInfo(pointNode.Value.Position, new Vector2(size, size),
                                                 pointNode.Value.CreationTime);
+                
             }
         }
 
