@@ -13,8 +13,9 @@ public class Point
         Z = inVector.z;
     }
 
-    public Point()
+    public string ToString()
     {
+        return new Vector3(X, Y, Z).ToString();
     }
     
 }
