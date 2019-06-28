@@ -18,17 +18,17 @@ public class AppManager : MonoBehaviour
     private void Awake()
     {
         logo.SetActive(true);
-        Invoke(nameof(HideLogo), 3);
-        EnableMainMenu();
-    }
-
-    private void HideLogo()
-    {
-        logo.SetActive(false);
+        mainMenu.SetActive(false);
+        creatorMenu.SetActive(false);
+        creatorController.SetActive(false);
+        visualizerHud.SetActive(false);
+        visualizerController.SetActive(false);
+        Invoke(nameof(EnableMainMenu), 3);
     }
 
     public void EnableMainMenu()
     {
+        logo.SetActive(false);
         mainMenu.SetActive(true);
         creatorMenu.SetActive(false);
         creatorController.SetActive(false);
