@@ -51,6 +51,8 @@ namespace GoogleARCore.Examples.Common
                 return;
             }
 
+            if (Mathf.Abs(Input.acceleration.z) < 0.7f) return;
+
             // Iterate over planes found in this frame and instantiate corresponding GameObjects to
             // visualize them.
             Session.GetTrackables<DetectedPlane>(m_NewPlanes, TrackableQueryFilter.New);

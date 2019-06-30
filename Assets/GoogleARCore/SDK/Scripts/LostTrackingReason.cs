@@ -46,6 +46,11 @@ namespace GoogleARCore
         /// </summary>
         ExcessiveMotion = 3,
 
+        ///<summary>
+        ///Just enable the plane tracker when the device is pointing down
+        /// </summary>>
+        IncorrectDevicePosition = 12,
+        
         /// <summary>
         /// A lack of visually distinct environmental features in the camera feed
         /// is causing motion tracking to fail.

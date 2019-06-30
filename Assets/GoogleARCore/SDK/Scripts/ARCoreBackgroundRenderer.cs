@@ -18,6 +18,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using UnityEngine.UI;
+
 namespace GoogleARCore
 {
     using System.Collections;
@@ -120,6 +122,9 @@ namespace GoogleARCore
         {
             GL.invertCulling = m_UserInvertCullingValue;
         }
+        
+        public Transform cameraTransform;
+        public Text printTransformRotation;
 
         private void Update()
         {
