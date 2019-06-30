@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GoogleARCore.Examples.Common;
 using Scripts;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
 
 public class CreatePortalManager : MonoBehaviour
 {
@@ -29,7 +25,10 @@ public class CreatePortalManager : MonoBehaviour
 
     [SerializeField] private PointcloudVisualizer Pointcloud;
     [SerializeField] private CreatorArController creatorController;
- 
+
+    [SerializeField] private float maxHeightImageSelector = 250f;
+
+    private List<Texture2D> textures;
 
     [SerializeField]
     private GameObject portalPrefab;
@@ -37,6 +36,9 @@ public class CreatePortalManager : MonoBehaviour
     // Start is called before the first frame update
 
     private CreatePortalState state;
+
+    [SerializeField] private GameObject imagesContainer;
+    [SerializeField] private GameObject imageSelectorPrefab;
 
     private void OnEnable()
     {
@@ -46,6 +48,7 @@ public class CreatePortalManager : MonoBehaviour
         createPortal.SetActive(true);
         homeButton.gameObject.SetActive(false);
         creatorController.gameObject.SetActive(false);
+        textures = new List<Texture2D>();
     }
 
     private void OnDisable()
@@ -87,8 +90,35 @@ public class CreatePortalManager : MonoBehaviour
         createPortal.SetActive(false);
         homeButton.gameObject.SetActive(false);
         creatorController.gameObject.SetActive(true);
+        PickImage();
     }
-    
+
+    private void PickImage()
+    {
+        NativeGallery.Permission permission = NativeGallery.GetImagesFromGallery( ( paths ) =>
+        {
+//    Debug.Log( "Image path: " + path );
+            foreach (var path in paths)
+            {
+                // Create Texture from selected image
+                var texture = NativeGallery.LoadImageAtPath( path );
+                if( texture == null )
+                {
+                    Debug.Log( "Couldn't load texture from " + path );
+                    return;
+                }
+                textures.Add(texture);
+                var imageSelector = Instantiate(imageSelectorPrefab, imagesContainer.transform);
+                var createdImage = imageSelector.GetComponent<Image>();
+                createdImage.sprite= Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), 
+                    new Vector2(0.5f, 0.5f));
+                createdImage.rectTransform.sizeDelta = new Vector2((float)texture.width/texture.height*maxHeightImageSelector, 
+                    maxHeightImageSelector);
+                imageSelector.GetComponent<ImageSelector>().controller = creatorController;
+            }
+        }, "Selecione suas obras de arte", "image/png");
+        Debug.Log( "Permission result: " + permission );
+    }
 }
 
 

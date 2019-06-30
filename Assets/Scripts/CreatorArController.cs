@@ -28,10 +28,10 @@ namespace Scripts
     using GoogleARCore;
     using UnityEngine;
     using UnityEngine.EventSystems;
-
 #if UNITY_EDITOR
     // Set up touch input propagation while using Instant Preview in the editor.
     using Input = GoogleARCore.InstantPreviewInput;
+
 #endif
 
     /// <summary>
@@ -63,17 +63,16 @@ namespace Scripts
 
         private bool _portalCreated = false;
 
-        [SerializeField]
-        private GameObject preview;
-        
-        private GameObject _instance;
+        [SerializeField] private GameObject preview;
+
+        private GameObject _previewInstance;
 
         [SerializeField] private GameObject selectImageButton;
 
         private bool _imageReady;
 
         private bool _selectingImage;
-        
+
         public void SetPrefab(GameObject prefab)
         {
             SpawnPrefab = prefab;
@@ -87,9 +86,8 @@ namespace Scripts
         private void Awake()
         {
             _arCoreLifeCycleManager = GetComponent<ArCoreLifeCycleManager>();
-
         }
-        
+
         private void OnEnable()
         {
             planeDiscovery.SetActive(true);
@@ -103,14 +101,13 @@ namespace Scripts
 
         public void Update()
         {
-            
             _arCoreLifeCycleManager.UpdateApplicationLifecycle();
 
             if (_selectingImage) return;
 
             if (_portalCreated)
             {
-                if (_instance == null || !_imageReady) return;
+                if (_previewInstance == null || !_imageReady) return;
                 PreviewArtPosition();
                 return;
             }
@@ -131,7 +128,7 @@ namespace Scripts
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
             TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
-                TrackableHitFlags.FeaturePointWithSurfaceNormal;
+                                              TrackableHitFlags.FeaturePointWithSurfaceNormal;
 
             if (!_portalCreated && Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
             {
@@ -189,48 +186,31 @@ namespace Scripts
             var firstCamera = FirstPersonCamera.transform;
             var ray = new Ray(firstCamera.position, firstCamera.forward);
             if (!Physics.Raycast(ray, out var rayCastHit, 500)) return;
-            _instance.SetActive(true);
+            _previewInstance.SetActive(true);
             var parentTransform = rayCastHit.collider.transform;
-            _instance.transform.forward = rayCastHit.normal;
-            _instance.transform.position = rayCastHit.point;
+            _previewInstance.transform.forward = rayCastHit.normal;
+            _previewInstance.transform.position = firstCamera.position + (rayCastHit.point - firstCamera.position)*0.999f;
 //            _instance.transform.parent = parentTransform;
         }
 
-        public void SelectImage()
+        public void SetImage(Image image)
         {
-            _selectingImage = true;
-            var maxSize = -1;
-        
-            var permission = NativeGallery.GetImageFromGallery((path) =>
+            // Create Texture from selected image
+            if (_previewInstance != null)
             {
-                Debug.Log("Image path: " + path);
-                if (path == null) return;
-                // Create Texture from selected image
-                var texture = NativeGallery.LoadImageAtPath(path, maxSize);
-                if (texture == null)
-                {
-                    Debug.Log("Couldn't load texture from " + path);
-                    return;
-                }
+                FindObjectOfType<GameDataManager>().AddImage(_previewInstance.transform.localScale,
+                    _previewInstance.GetComponent<SpriteRenderer>().sprite);
+            }
 
-                if (_instance != null)
-                {
-                    FindObjectOfType<GameDataManager>().AddImage(_instance.transform.localScale,
-                        _instance.GetComponent<SpriteRenderer>().sprite);
-                }
-                _instance = Instantiate(preview);
-                _instance.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
-                _instance.transform.forward = Camera.main.transform.forward;
-                var spriteRenderer = _instance.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = Sprite.Create(texture,
-                    new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                _instance.transform.localScale = _instance.transform.localScale / 25f;
+            _previewInstance = Instantiate(preview);
+            _previewInstance.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
+            _previewInstance.transform.forward = Camera.main.transform.forward;
+            var spriteRenderer = _previewInstance.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = image.sprite;
+            _previewInstance.transform.localScale = _previewInstance.transform.localScale / 25f;
 
-                _imageReady = true;
-                _selectingImage = false;
-            }, "Select a PNG image", "image/png", maxSize);
-            
-            Debug.Log("Permission result: " + permission);
+            _imageReady = true;
+            _selectingImage = false;
         }
     }
 }
