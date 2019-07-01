@@ -69,8 +69,9 @@ namespace Scripts
         private GameObject _previewInstance;
         private GameObject _portalInstance;
 
-        [SerializeField] private GameObject selectImageButton;
-
+        [SerializeField]
+        private CreatePortalManager createPortalManager;
+        
         public void SetPrefab(GameObject prefab)
         {
             SpawnPrefab = prefab;
@@ -94,8 +95,9 @@ namespace Scripts
         private void OnDisable()
         {
             planeDiscovery.SetActive(false);
+            Destroy(_previewInstance);
+            Destroy(_portalInstance);
         }
-
 
         public void Update()
         {
@@ -194,6 +196,8 @@ namespace Scripts
         public void AttachImage()
         {
             _previewInstance.transform.parent = _portalInstance.GetComponentsInChildren<Transform>()[1];
+            createPortalManager.AddImage(_previewInstance.GetComponent<SpriteRenderer>().sprite,
+                _previewInstance);
             _previewInstance = Instantiate(preview);
         }
         

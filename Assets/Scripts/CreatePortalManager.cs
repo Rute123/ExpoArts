@@ -40,6 +40,14 @@ public class CreatePortalManager : MonoBehaviour
     [SerializeField] private GameObject imagesContainer;
     [SerializeField] private GameObject imageSelectorPrefab;
 
+    [SerializeField] private GameDataManager gameDataManager;
+
+    public Portal TempPortal
+    {
+        get;
+        private set;
+    }
+
     private void OnEnable()
     {
         hints.gameObject.SetActive(true);
@@ -49,6 +57,8 @@ public class CreatePortalManager : MonoBehaviour
         homeButton.gameObject.SetActive(false);
         creatorController.gameObject.SetActive(false);
         textures = new List<Texture2D>();
+        saveButton.gameObject.SetActive(false);
+        addImageButton.gameObject.SetActive(false);
     }
 
     private void OnDisable()
@@ -82,6 +92,8 @@ public class CreatePortalManager : MonoBehaviour
         localPosition = new Vector3(localPosition.x*(width/canonicalWidth),localPosition.y,
             localPosition.z*(height/canonicalHeight));
         portal.localPosition = localPosition;
+        
+        TempPortal = new Portal(width, height);
     }
 
     public void FinalizeCreation()
@@ -90,10 +102,12 @@ public class CreatePortalManager : MonoBehaviour
         createPortal.SetActive(false);
         homeButton.gameObject.SetActive(false);
         creatorController.gameObject.SetActive(true);
-        PickImage();
+        saveButton.gameObject.SetActive(true);
+        addImageButton.gameObject.SetActive(true);
+        PickImages();
     }
 
-    private void PickImage()
+    private void PickImages()
     {
         NativeGallery.Permission permission = NativeGallery.GetImagesFromGallery( ( paths ) =>
         {
@@ -119,6 +133,18 @@ public class CreatePortalManager : MonoBehaviour
         }, "Selecione suas obras de arte", "image/png");
         Debug.Log( "Permission result: " + permission );
     }
+
+    public void AddImage(Sprite sprite, GameObject spriteGameObject)
+    {
+        TempPortal.arts.Add(new Picture(spriteGameObject.transform.localPosition, spriteGameObject.transform.localRotation,
+            sprite));
+    }
+
+    public void SavePortal()
+    {
+        gameDataManager.Save(TempPortal);
+    }
+    
 }
 
 

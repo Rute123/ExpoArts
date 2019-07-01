@@ -7,6 +7,7 @@ using UnityEngine;
 [Serializable]
 public class Picture
 {
+    public long id;
     [CanBeNull] public string author;
     public float x;
     public float y;
@@ -14,6 +15,7 @@ public class Picture
     public float rotationX;
     public float rotationY;
     public float rotationZ;
+    public float rotationW;
     public string image;
     
     public Sprite Sprite
@@ -28,23 +30,34 @@ public class Picture
         set => image = Convert.ToBase64String(value.texture.EncodeToPNG());
     }
     
-    public Picture(Vector3 position)
+    public Picture(Vector3 position, Quaternion rotation)
     {
         x = position.x;
         y = position.y;
         z = position.z;
+        rotationX = rotation.x;
+        rotationY = rotation.y;
+        rotationZ = rotation.z;
+        rotationW = rotation.w;
     }
     
-    public Picture(Vector3 position, Sprite sprite)
+    public Picture(Vector3 position, Quaternion rotation, Sprite sprite) : this(position, rotation)
     {
-        x = position.x;
-        y = position.y;
-        z = position.z;
         Sprite = sprite;
+    }
+
+    public Picture(Vector3 position, Quaternion rotation, Sprite sprite, long id) : this(position, rotation, sprite)
+    {
+        this.id = id;
     }
 
     public Vector3 GetPosition()
     {
         return new Vector3(x, y, z);
+    }
+
+    public Quaternion GetRotation()
+    {
+        return new Quaternion(rotationX, rotationY, rotationZ, rotationW);
     }
 }

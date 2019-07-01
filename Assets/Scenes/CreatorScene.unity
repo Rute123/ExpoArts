@@ -658,7 +658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &255172767
 RectTransform:
   m_ObjectHideFlags: 0
@@ -918,7 +918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.9017887, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1523,7 +1523,7 @@ MonoBehaviour:
   SpawnPrefab: {fileID: 2886668802961344976, guid: 41267b811cba09f429742d3e14df0b6c,
     type: 3}
   preview: {fileID: 9178656088656887591, guid: 33e77a2547b26024bbc66db0ad1acbfd, type: 3}
-  selectImageButton: {fileID: 0}
+  createPortalManager: {fileID: 1619200820}
   planeDiscovery: {fileID: 2067936195}
 --- !u!1 &588167037
 GameObject:
@@ -2173,28 +2173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData:
-    portals:
-    - arts: []
-      curator: 
-      width: 0
-      height: 0
-    - arts: []
-      curator: 
-      width: 0
-      height: 0
-    - arts: []
-      curator: 
-      width: 0
-      height: 0
-    - arts: []
-      curator: 
-      width: 0
-      height: 0
-    - arts: []
-      curator: 
-      width: 0
-      height: 0
-  images: {fileID: 0}
+    portals: []
 --- !u!1 &855497558
 GameObject:
   m_ObjectHideFlags: 0
@@ -3893,6 +3872,7 @@ MonoBehaviour:
   imagesContainer: {fileID: 396972701}
   imageSelectorPrefab: {fileID: 6419006412517957744, guid: f4607ebf7e84a124390c35c574ef860b,
     type: 3}
+  gameDataManager: {fileID: 806747937}
 --- !u!1 &1680119427
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,7 +5504,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2029976704}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619200820}
+        m_MethodName: SavePortal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 806747935}
+        m_MethodName: EnableMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2029976704
