@@ -24,7 +24,7 @@ public class GameDataManager : MonoBehaviour
 
     public void AddImage(Vector3 localPosition, Sprite sprite)
     {
-        gameData.pictures.Add(new Picture(localPosition, sprite));
+//        gameData.pictures.Add(new Picture(localPosition, sprite));
         Save();
     }
 

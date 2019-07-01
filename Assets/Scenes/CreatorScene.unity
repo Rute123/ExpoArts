@@ -2173,7 +2173,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData:
-    pictures: []
+    portals:
+    - arts: []
+      curator: 
+      width: 0
+      height: 0
+    - arts: []
+      curator: 
+      width: 0
+      height: 0
+    - arts: []
+      curator: 
+      width: 0
+      height: 0
+    - arts: []
+      curator: 
+      width: 0
+      height: 0
+    - arts: []
+      curator: 
+      width: 0
+      height: 0
   images: {fileID: 0}
 --- !u!1 &855497558
 GameObject:
@@ -4730,7 +4750,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 577930480}
-        m_MethodName: SelectImage
+        m_MethodName: AttachImage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

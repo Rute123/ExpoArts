@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [Serializable]
 public class Picture
 {
+    [CanBeNull] public string author;
     public float x;
     public float y;
     public float z;
+    public float rotationX;
+    public float rotationY;
+    public float rotationZ;
     public string image;
-    
     
     public Sprite Sprite
     {

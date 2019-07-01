@@ -20,6 +20,7 @@
 
 
 using System;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using UnityEngine.UI;
 
@@ -66,12 +67,9 @@ namespace Scripts
         [SerializeField] private GameObject preview;
 
         private GameObject _previewInstance;
+        private GameObject _portalInstance;
 
         [SerializeField] private GameObject selectImageButton;
-
-        private bool _imageReady;
-
-        private bool _selectingImage;
 
         public void SetPrefab(GameObject prefab)
         {
@@ -103,11 +101,9 @@ namespace Scripts
         {
             _arCoreLifeCycleManager.UpdateApplicationLifecycle();
 
-            if (_selectingImage) return;
-
             if (_portalCreated)
             {
-                if (_previewInstance == null || !_imageReady) return;
+                if (_previewInstance == null) return;
                 PreviewArtPosition();
                 return;
             }
@@ -147,37 +143,21 @@ namespace Scripts
                     if (hit.Trackable is FeaturePoint)
                         return;
 
-
                     // Instantiate Andy model at the hit pose.
-                    var portal = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                    _portalInstance = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
 
                     // Compensate for the hitPose rotation facing away from the raycast (i.e.
                     // camera).
-                    portal.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
+                    _portalInstance.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
 
                     // Create an anchor to allow ARCore to track the hitpoint as understanding of
                     // the physical world evolves.
                     var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
                     // Make Andy model a child of the anchor.
-                    portal.transform.parent = anchor.transform;
+                    _portalInstance.transform.parent = anchor.transform;
                     _portalCreated = true;
-                    LoadPictures(portal);
                 }
-            }
-        }
-
-        private void LoadPictures(GameObject portal)
-        {
-            var gameData = FindObjectOfType<GameDataManager>().GameData;
-
-            foreach (var picture in gameData.pictures)
-            {
-                var pictureInstance = Instantiate(preview);
-                pictureInstance.transform.position = picture.GetPosition();
-                var spriteRenderer = pictureInstance.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = picture.Sprite;
-                pictureInstance.transform.localScale = pictureInstance.transform.localScale / 25f;
             }
         }
 
@@ -198,19 +178,24 @@ namespace Scripts
             // Create Texture from selected image
             if (_previewInstance != null)
             {
-                FindObjectOfType<GameDataManager>().AddImage(_previewInstance.transform.localScale,
-                    _previewInstance.GetComponent<SpriteRenderer>().sprite);
+                
+//                FindObjectOfType<GameDataManager>().AddImage(_previewInstance.transform.localScale,
+//                    _previewInstance.GetComponent<SpriteRenderer>().sprite);
             }
 
-            _previewInstance = Instantiate(preview);
-            _previewInstance.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
-            _previewInstance.transform.forward = Camera.main.transform.forward;
+            if (_previewInstance == null)
+                _previewInstance = Instantiate(preview);
+            
             var spriteRenderer = _previewInstance.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = image.sprite;
-            _previewInstance.transform.localScale = _previewInstance.transform.localScale / 25f;
-
-            _imageReady = true;
-            _selectingImage = false;
+            _previewInstance.transform.localScale = Vector3.one / 25f;
         }
+
+        public void AttachImage()
+        {
+            _previewInstance.transform.parent = _portalInstance.GetComponentsInChildren<Transform>()[1];
+            _previewInstance = Instantiate(preview);
+        }
+        
     }
 }

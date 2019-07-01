@@ -5,5 +5,5 @@ using UnityEngine;
 [Serializable]
 public class GameData
 {
-    [SerializeField] public List<Picture> pictures;
+    [SerializeField] public List<Portal> portals;
 }
