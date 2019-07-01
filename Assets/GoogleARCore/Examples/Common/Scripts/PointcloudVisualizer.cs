@@ -84,7 +84,7 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         private MeshRenderer m_MeshRenderer;
 
-        private BoundingBox boudingBox;
+        public BoundingBox boudingBox;
         
         /// <summary>
         /// The unique identifier for the shader _ScreenWidth property.

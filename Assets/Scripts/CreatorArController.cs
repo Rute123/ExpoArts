@@ -20,6 +20,7 @@
 
 
 using System;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using UnityEngine.UI;
 
@@ -28,10 +29,10 @@ namespace Scripts
     using GoogleARCore;
     using UnityEngine;
     using UnityEngine.EventSystems;
-
 #if UNITY_EDITOR
     // Set up touch input propagation while using Instant Preview in the editor.
     using Input = GoogleARCore.InstantPreviewInput;
+
 #endif
 
     /// <summary>
@@ -63,16 +64,13 @@ namespace Scripts
 
         private bool _portalCreated = false;
 
+        [SerializeField] private GameObject preview;
+
+        private GameObject _previewInstance;
+        private GameObject _portalInstance;
+
         [SerializeField]
-        private GameObject preview;
-        
-        private GameObject _instance;
-
-        [SerializeField] private GameObject selectImageButton;
-
-        private bool _imageReady;
-
-        private bool _selectingImage;
+        private CreatePortalManager createPortalManager;
         
         public void SetPrefab(GameObject prefab)
         {
@@ -87,9 +85,8 @@ namespace Scripts
         private void Awake()
         {
             _arCoreLifeCycleManager = GetComponent<ArCoreLifeCycleManager>();
-
         }
-        
+
         private void OnEnable()
         {
             planeDiscovery.SetActive(true);
@@ -98,19 +95,17 @@ namespace Scripts
         private void OnDisable()
         {
             planeDiscovery.SetActive(false);
+            Destroy(_previewInstance);
+            Destroy(_portalInstance);
         }
-
 
         public void Update()
         {
-            
             _arCoreLifeCycleManager.UpdateApplicationLifecycle();
-
-            if (_selectingImage) return;
 
             if (_portalCreated)
             {
-                if (_instance == null || !_imageReady) return;
+                if (_previewInstance == null) return;
                 PreviewArtPosition();
                 return;
             }
@@ -131,7 +126,7 @@ namespace Scripts
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
             TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
-                TrackableHitFlags.FeaturePointWithSurfaceNormal;
+                                              TrackableHitFlags.FeaturePointWithSurfaceNormal;
 
             if (!_portalCreated && Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
             {
@@ -150,37 +145,21 @@ namespace Scripts
                     if (hit.Trackable is FeaturePoint)
                         return;
 
-
                     // Instantiate Andy model at the hit pose.
-                    var portal = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                    _portalInstance = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
 
                     // Compensate for the hitPose rotation facing away from the raycast (i.e.
                     // camera).
-                    portal.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
+                    _portalInstance.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
 
                     // Create an anchor to allow ARCore to track the hitpoint as understanding of
                     // the physical world evolves.
                     var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
                     // Make Andy model a child of the anchor.
-                    portal.transform.parent = anchor.transform;
+                    _portalInstance.transform.parent = anchor.transform;
                     _portalCreated = true;
-                    LoadPictures(portal);
                 }
-            }
-        }
-
-        private void LoadPictures(GameObject portal)
-        {
-            var gameData = FindObjectOfType<GameDataManager>().GameData;
-
-            foreach (var picture in gameData.pictures)
-            {
-                var pictureInstance = Instantiate(preview);
-                pictureInstance.transform.position = picture.GetPosition();
-                var spriteRenderer = pictureInstance.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = picture.Sprite;
-                pictureInstance.transform.localScale = pictureInstance.transform.localScale / 25f;
             }
         }
 
@@ -189,48 +168,38 @@ namespace Scripts
             var firstCamera = FirstPersonCamera.transform;
             var ray = new Ray(firstCamera.position, firstCamera.forward);
             if (!Physics.Raycast(ray, out var rayCastHit, 500)) return;
-            _instance.SetActive(true);
+            _previewInstance.SetActive(true);
             var parentTransform = rayCastHit.collider.transform;
-            _instance.transform.forward = rayCastHit.normal;
-            _instance.transform.position = rayCastHit.point;
+            _previewInstance.transform.forward = rayCastHit.normal;
+            _previewInstance.transform.position = firstCamera.position + (rayCastHit.point - firstCamera.position)*0.999f;
 //            _instance.transform.parent = parentTransform;
         }
 
-        public void SelectImage()
+        public void SetImage(Image image)
         {
-            _selectingImage = true;
-            var maxSize = -1;
-        
-            var permission = NativeGallery.GetImageFromGallery((path) =>
+            // Create Texture from selected image
+            if (_previewInstance != null)
             {
-                Debug.Log("Image path: " + path);
-                if (path == null) return;
-                // Create Texture from selected image
-                var texture = NativeGallery.LoadImageAtPath(path, maxSize);
-                if (texture == null)
-                {
-                    Debug.Log("Couldn't load texture from " + path);
-                    return;
-                }
+                
+//                FindObjectOfType<GameDataManager>().AddImage(_previewInstance.transform.localScale,
+//                    _previewInstance.GetComponent<SpriteRenderer>().sprite);
+            }
 
-                if (_instance != null)
-                {
-                    FindObjectOfType<GameDataManager>().AddImage(_instance.transform.localScale,
-                        _instance.GetComponent<SpriteRenderer>().sprite);
-                }
-                _instance = Instantiate(preview);
-                _instance.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
-                _instance.transform.forward = Camera.main.transform.forward;
-                var spriteRenderer = _instance.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = Sprite.Create(texture,
-                    new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                _instance.transform.localScale = _instance.transform.localScale / 25f;
-
-                _imageReady = true;
-                _selectingImage = false;
-            }, "Select a PNG image", "image/png", maxSize);
+            if (_previewInstance == null)
+                _previewInstance = Instantiate(preview);
             
-            Debug.Log("Permission result: " + permission);
+            var spriteRenderer = _previewInstance.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = image.sprite;
+            _previewInstance.transform.localScale = Vector3.one / 25f;
         }
+
+        public void AttachImage()
+        {
+            _previewInstance.transform.parent = _portalInstance.GetComponentsInChildren<Transform>()[1];
+            createPortalManager.AddImage(_previewInstance.GetComponent<SpriteRenderer>().sprite,
+                _previewInstance);
+            _previewInstance = Instantiate(preview);
+        }
+        
     }
 }

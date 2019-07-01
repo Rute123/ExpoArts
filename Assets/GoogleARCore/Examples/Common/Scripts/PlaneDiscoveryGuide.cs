@@ -18,6 +18,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System;
+using System.Net.Mime;
+
 namespace GoogleARCore.Examples.Common
 {
     using System.Collections.Generic;
@@ -67,32 +70,32 @@ namespace GoogleARCore.Examples.Common
         /// <summary>
         /// The Game Object that provides feature points visualization.
         /// </summary>
-        [Tooltip("The Game Object that provides feature points visualization.")]
-        [SerializeField] private GameObject m_FeaturePoints = null;
+        [Tooltip("The Game Object that provides feature points visualization.")] [SerializeField]
+        private GameObject m_FeaturePoints = null;
 
         /// <summary>
         /// The RawImage that provides rotating hand animation.
         /// </summary>
-        [Tooltip("The RawImage that provides rotating hand animation.")]
-        [SerializeField] private RawImage m_HandAnimation = null;
+        [Tooltip("The RawImage that provides rotating hand animation.")] [SerializeField]
+        private RawImage m_HandAnimation = null;
 
         /// <summary>
         /// The snackbar Game Object.
         /// </summary>
-        [Tooltip("The snackbar Game Object.")]
-        [SerializeField] private GameObject m_SnackBar = null;
+        [Tooltip("The snackbar Game Object.")] [SerializeField]
+        private GameObject m_SnackBar = null;
 
         /// <summary>
         /// The snackbar text.
         /// </summary>
-        [Tooltip("The snackbar text.")]
-        [SerializeField] private Text m_SnackBarText = null;
+        [Tooltip("The snackbar text.")] [SerializeField]
+        private Text m_SnackBarText = null;
 
         /// <summary>
         /// The Game Object that contains the button to open the help window.
         /// </summary>
-        [Tooltip("The Game Object that contains the button to open the help window.")]
-        [SerializeField] private GameObject m_OpenButton = null;
+        [Tooltip("The Game Object that contains the button to open the help window.")] [SerializeField]
+        private GameObject m_OpenButton = null;
 
         /// <summary>
         /// The Game Object that contains the window with more instructions on how to find a plane.
@@ -100,13 +103,14 @@ namespace GoogleARCore.Examples.Common
         [Tooltip(
             "The Game Object that contains the window with more instructions on how to find " +
             "a plane.")]
-        [SerializeField] private GameObject m_MoreHelpWindow = null;
+        [SerializeField]
+        private GameObject m_MoreHelpWindow = null;
 
         /// <summary>
         /// The Game Object that contains the button to close the help window.
         /// </summary>
-        [Tooltip("The Game Object that contains the button to close the help window.")]
-        [SerializeField] private Button m_GotItButton = null;
+        [Tooltip("The Game Object that contains the button to close the help window.")] [SerializeField]
+        private Button m_GotItButton = null;
 
         /// <summary>
         /// The elapsed time ARCore has been detecting at least one plane.
@@ -117,6 +121,9 @@ namespace GoogleARCore.Examples.Common
         /// The elapsed time ARCore has been tracking but not detected any planes.
         /// </summary>
         private float m_NotDetectedPlaneElapsed;
+
+
+        private bool pointingDown = false;
 
         /// <summary>
         /// Indicates whether a lost tracking reason is displayed.
@@ -174,44 +181,19 @@ namespace GoogleARCore.Examples.Common
         }
 
         /// <summary>
-        /// Callback executed when the got-it button has been clicked by the user.
-        /// </summary>
-        private void _OnGotItButtonClicked()
-        {
-            m_MoreHelpWindow.SetActive(false);
-            enabled = true;
-        }
-
-        /// <summary>
-        /// Checks whether at least one plane being actively tracked exists.
-        /// </summary>
-        private void _UpdateDetectedPlaneTrackingState()
-        {
-            if (Session.Status != SessionStatus.Tracking)
-            {
-                return;
-            }
-
-            Session.GetTrackables<DetectedPlane>(m_DetectedPlanes, TrackableQueryFilter.All);
-            foreach (DetectedPlane plane in m_DetectedPlanes)
-            {
-                if (plane.TrackingState == TrackingState.Tracking)
-                {
-                    m_DetectedPlaneElapsed += Time.deltaTime;
-                    m_NotDetectedPlaneElapsed = 0f;
-                    return;
-                }
-            }
-
-            m_DetectedPlaneElapsed = 0f;
-            m_NotDetectedPlaneElapsed += Time.deltaTime;
-        }
-
-        /// <summary>
         /// Hides or shows the UI based on the existence of a plane being currently tracked.
         /// </summary>
         private void _UpdateUI()
         {
+            if (!pointingDown)
+            {
+                m_FeaturePoints.SetActive(false);
+                m_HandAnimation.enabled = false;
+                m_SnackBar.SetActive(true);
+                m_SnackBarText.text = "Aponte o dispositivo para o solo para continuar com a descoberta";
+                return;
+            }
+
             if (Session.Status == SessionStatus.LostTracking &&
                 Session.LostTrackingReason != LostTrackingReason.None)
             {
@@ -219,6 +201,7 @@ namespace GoogleARCore.Examples.Common
                 m_FeaturePoints.SetActive(false);
                 m_HandAnimation.enabled = false;
                 m_SnackBar.SetActive(true);
+
                 switch (Session.LostTrackingReason)
                 {
                     case LostTrackingReason.InsufficientLight:
@@ -289,6 +272,46 @@ namespace GoogleARCore.Examples.Common
 
                 m_HandAnimation.enabled = false;
             }
+        }
+
+        /// <summary>
+        /// Callback executed when the got-it button has been clicked by the user.
+        /// </summary>
+        private void _OnGotItButtonClicked()
+        {
+            m_MoreHelpWindow.SetActive(false);
+            enabled = true;
+        }
+
+        /// <summary>
+        /// Checks whether at least one plane being actively tracked exists.
+        /// </summary>
+        private void _UpdateDetectedPlaneTrackingState()
+        {
+            if (Session.Status != SessionStatus.Tracking)
+            {
+                return;
+            }
+
+            if (!(Mathf.Abs(Input.acceleration.z) < 0.7))
+            {
+                pointingDown = true;
+                return;
+            }
+
+            Session.GetTrackables<DetectedPlane>(m_DetectedPlanes, TrackableQueryFilter.All);
+            foreach (DetectedPlane plane in m_DetectedPlanes)
+            {
+                if (plane.TrackingState == TrackingState.Tracking)
+                {
+                    m_DetectedPlaneElapsed += Time.deltaTime;
+                    m_NotDetectedPlaneElapsed = 0f;
+                    return;
+                }
+            }
+
+            m_DetectedPlaneElapsed = 0f;
+            m_NotDetectedPlaneElapsed += Time.deltaTime;
         }
 
         /// <summary>
