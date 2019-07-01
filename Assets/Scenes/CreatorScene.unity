@@ -1131,7 +1131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameDataManager: {fileID: 806747937}
-  modelExpoPrefab: {fileID: 2886668802961344976, guid: 41267b811cba09f429742d3e14df0b6c,
+  modelExpoPrefab: {fileID: 5390724544042757093, guid: de49c7aa0438bdb48a8589008eb0e1ae,
     type: 3}
   emptyExpoPrefab: {fileID: 2886668802961344976, guid: 41267b811cba09f429742d3e14df0b6c,
     type: 3}
@@ -1900,7 +1900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &680002311
 RectTransform:
   m_ObjectHideFlags: 0
