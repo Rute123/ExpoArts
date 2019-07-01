@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GoogleARCore.Examples.Common;
 using Scripts;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine.UI;
 
 public class CreatePortalManager : MonoBehaviour
 {
-
     [SerializeField] private float canonicalWidth = 5f;
     [SerializeField] private float canonicalHeight = 5f;
     [SerializeField] private float width = 5f;
@@ -30,9 +30,8 @@ public class CreatePortalManager : MonoBehaviour
 
     private List<Texture2D> textures;
 
-    [SerializeField]
-    private GameObject portalPrefab;
-    
+    [SerializeField] private GameObject portalPrefab;
+
     // Start is called before the first frame update
 
     private CreatePortalState state;
@@ -42,11 +41,7 @@ public class CreatePortalManager : MonoBehaviour
 
     [SerializeField] private GameDataManager gameDataManager;
 
-    public Portal TempPortal
-    {
-        get;
-        private set;
-    }
+    public Portal TempPortal { get; private set; }
 
     private void OnEnable()
     {
@@ -70,7 +65,9 @@ public class CreatePortalManager : MonoBehaviour
     {
         if (state == CreatePortalState.CreatingEnvironment)
         {
-            hints.text = Mathf.Abs(Input.acceleration.z) < 0.7 ? "Aponte para o dispositivo chão" : "Percorra a área desejada para criar seu portal";
+            hints.text = Mathf.Abs(Input.acceleration.z) < 0.7
+                ? "Aponte para o dispositivo chão"
+                : "Percorra a área desejada para criar seu portal";
             width = Pointcloud.boudingBox.getSubPlane().x;
             height = Pointcloud.boudingBox.getSubPlane().y;
             return;
@@ -78,21 +75,21 @@ public class CreatePortalManager : MonoBehaviour
 
         hints.text = "Clique no piso escaneado para criar o portal";
     }
-    
-    
+
+
     public void CreatePortal()
     {
         var portal = portalPrefab.GetComponentsInChildren<Transform>()[1];
         var localScale = portal.localScale;
-        localScale = new Vector3(localScale.x*(width/canonicalWidth),
-            localScale.y, localScale.z*(height/canonicalHeight));
+        localScale = new Vector3(localScale.x * (width / canonicalWidth),
+            localScale.y, localScale.z * (height / canonicalHeight));
         portal.localScale = localScale;
 
         var localPosition = portal.localPosition;
-        localPosition = new Vector3(localPosition.x*(width/canonicalWidth),localPosition.y,
-            localPosition.z*(height/canonicalHeight));
+        localPosition = new Vector3(localPosition.x * (width / canonicalWidth), localPosition.y,
+            localPosition.z * (height / canonicalHeight));
         portal.localPosition = localPosition;
-        
+
         TempPortal = new Portal(width, height);
     }
 
@@ -109,34 +106,38 @@ public class CreatePortalManager : MonoBehaviour
 
     private void PickImages()
     {
-        NativeGallery.Permission permission = NativeGallery.GetImagesFromGallery( ( paths ) =>
+        NativeGallery.Permission permission = NativeGallery.GetImagesFromGallery((paths) =>
         {
 //    Debug.Log( "Image path: " + path );
             foreach (var path in paths)
             {
                 // Create Texture from selected image
-                var texture = NativeGallery.LoadImageAtPath( path );
-                if( texture == null )
+                var texture = NativeGallery.LoadImageAtPath(path, -1, false);
+                
+                if (texture == null)
                 {
-                    Debug.Log( "Couldn't load texture from " + path );
+                    Debug.Log("Couldn't load texture from " + path);
                     return;
                 }
+
                 textures.Add(texture);
                 var imageSelector = Instantiate(imageSelectorPrefab, imagesContainer.transform);
                 var createdImage = imageSelector.GetComponent<Image>();
-                createdImage.sprite= Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), 
+                createdImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
                     new Vector2(0.5f, 0.5f));
-                createdImage.rectTransform.sizeDelta = new Vector2((float)texture.width/texture.height*maxHeightImageSelector, 
+                createdImage.rectTransform.sizeDelta = new Vector2(
+                    (float) texture.width / texture.height * maxHeightImageSelector,
                     maxHeightImageSelector);
                 imageSelector.GetComponent<ImageSelector>().controller = creatorController;
             }
         }, "Selecione suas obras de arte", "image/png");
-        Debug.Log( "Permission result: " + permission );
+        Debug.Log("Permission result: " + permission);
     }
 
     public void AddImage(Sprite sprite, GameObject spriteGameObject)
     {
-        TempPortal.arts.Add(new Picture(spriteGameObject.transform.localPosition, spriteGameObject.transform.localRotation,
+        TempPortal.arts.Add(new Picture(spriteGameObject.transform.localPosition,
+            spriteGameObject.transform.localRotation,
             sprite));
     }
 
@@ -144,7 +145,6 @@ public class CreatePortalManager : MonoBehaviour
     {
         gameDataManager.Save(TempPortal);
     }
-    
 }
 
 

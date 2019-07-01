@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameDataManager : MonoBehaviour
 {
 
     [SerializeField]
-    private GameData gameData;
-    
-    
-    
-    public GameData GameData { get;  }
-    // Start is called before the first frame update
+    public GameData gameData;
+
+        // Start is called before the first frame update
     private void Awake()
     {
         Load();
@@ -19,8 +17,11 @@ public class GameDataManager : MonoBehaviour
     public void Save(Portal portal)
     {
           Debug.Log(JsonUtility.ToJson(gameData));
+          gameData.portals.Add(portal);
+          Debug.Log(JsonUtility.ToJson(gameData));
+
           //Save portal on API
-          
+
 //        var bf = new BinaryFormatter();
 //        //Application.persistentDataPath is a string, so if you wanted you can put that into debug.log if you want to know where save games are located
 //        var file = File.Create (Application.persistentDataPath + "/savedGames.gd"); //you can call it anything you want
@@ -29,7 +30,8 @@ public class GameDataManager : MonoBehaviour
 //        Debug.Log(Application.persistentDataPath);
     }
 
-    public void Load() {
+    public void Load()
+    {
         gameData = new GameData();
         //Recover data from API
         Debug.Log(JsonUtility.ToJson(gameData));
