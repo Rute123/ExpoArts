@@ -196,8 +196,7 @@ namespace Scripts
         public void AttachImage()
         {
             _previewInstance.transform.parent = _portalInstance.GetComponentsInChildren<Transform>()[1];
-            createPortalManager.AddImage(_previewInstance.GetComponent<SpriteRenderer>().sprite,
-                _previewInstance);
+            createPortalManager.AddImage(_previewInstance.GetComponent<SpriteRenderer>().sprite,_previewInstance);
             _previewInstance = Instantiate(preview);
         }
         

@@ -6,4 +6,10 @@ using UnityEngine;
 public class GameData
 {
     [SerializeField] public List<Portal> portals;
+
+    public GameData()
+    {
+        portals = new List<Portal>();
+    }
+    
 }

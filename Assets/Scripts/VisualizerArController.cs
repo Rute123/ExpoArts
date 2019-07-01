@@ -20,6 +20,7 @@
 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -59,6 +60,11 @@ namespace Scripts
         public GameObject SpawnPrefab;
 
         /// <summary>
+        /// Portal selected data
+        /// </summary>
+        public Portal selectedPortal;
+
+        /// <summary>
         /// The rotation in degrees need to apply to model when the Andy model is placed.
         /// </summary>
         private const float k_ModelRotation = 0.0f;
@@ -76,6 +82,7 @@ namespace Scripts
         [SerializeField] private GameObject planeDiscovery;
         [SerializeField] private RawImage pointDownTutorial;
         [SerializeField] private GameObject moreInfo;
+        [SerializeField] private GameObject emptySprite;
 
 
         private void Awake()
@@ -149,8 +156,23 @@ namespace Scripts
                 // Make Andy model a child of the anchor.
                 portal.transform.parent = anchor.transform;
                 _portalCreated = true;
+                StartCoroutine(PlaceArts(portal, selectedPortal));
             }
         }
 
+        public IEnumerator PlaceArts(GameObject root, Portal portal)
+        {
+            var expoTransform = root.GetComponentsInChildren<Transform>()[1];
+            foreach (var art in portal.arts)
+            {
+                var emptySpriteInstance = Instantiate(emptySprite, expoTransform);
+                emptySpriteInstance.transform.localPosition = art.GetPosition();
+                emptySpriteInstance.transform.localRotation = art.GetRotation();
+                
+                var spriteRenderer = emptySpriteInstance.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = art.Sprite;
+                yield return 0;
+            }
+        }
     }
 }

@@ -279,9 +279,6 @@ namespace GoogleARCore.Examples.Common
             m_CachedPoints.AddLast(new PointInfo(point, new Vector2(m_DefaultSize, m_DefaultSize),
                                                  Time.time));
             boudingBox.addPoint(new Point(point));
-            GameObject.FindWithTag("Text").GetComponent<Text>().text = $"{boudingBox.min.ToString()}\n" +
-                                                                       $"{boudingBox.max.ToString()}\n" +
-                                                                       $"{boudingBox.getSubPlane().ToString()}\n";
         }
 
         /// <summary>

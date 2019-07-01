@@ -9,6 +9,8 @@ public class PortalSelector : MonoBehaviour, IPointerClickHandler
 {
     public Text PortalName { get; set; }
     public PortalListController PortalListController;
+    public GameObject portalPrefab;
+    public Portal portalData;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -19,5 +21,7 @@ public class PortalSelector : MonoBehaviour, IPointerClickHandler
     {
         PortalName.text = name;
         PortalListController.SelectedPortal = this;
+        Debug.Log(PortalListController.SelectedPortal);
+        PortalListController.SelectPortal();
     }
 }

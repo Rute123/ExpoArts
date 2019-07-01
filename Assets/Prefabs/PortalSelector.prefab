@@ -88,3 +88,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PortalListController: {fileID: 0}
+  portalPrefab: {fileID: 2886668802961344976, guid: 41267b811cba09f429742d3e14df0b6c,
+    type: 3}
+  portalData:
+    id: 0
+    arts: []
+    curator: 
+    width: 0
+    height: 0
