@@ -100,7 +100,7 @@ public class CreatePortalManager : MonoBehaviour
     {
         state = CreatePortalState.AddingImages;
         createPortal.SetActive(false);
-        homeButton.gameObject.SetActive(false);
+        homeButton.gameObject.SetActive(true);
         creatorController.gameObject.SetActive(true);
         saveButton.gameObject.SetActive(true);
         addImageButton.gameObject.SetActive(true);
