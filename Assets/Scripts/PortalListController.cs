@@ -37,10 +37,10 @@ public class PortalListController : MonoBehaviour
     {
         debugText.text = gameDataManager.gameData.portals.Count.ToString();
         gameData = gameDataManager.gameData;
+        qtdPortals = gameData.portals.Count;
+        visualizer = GetComponent<VisualizerArController>();        
         LoadPortals();
-        qtdPortals = gameData.portals.Count+1;
-        visualizer = GetComponent<VisualizerArController>();
-        Debug.Log(JsonUtility.ToJson(gameDataManager.gameData));
+
     }
 
     private void LoadPortals()
