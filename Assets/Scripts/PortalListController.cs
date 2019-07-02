@@ -8,9 +8,6 @@ using UnityEngine.UI;
 
 public class PortalListController : MonoBehaviour
 {
-    [SerializeField] private GameDataManager gameDataManager;
-    private GameData gameData;
-
     [SerializeField] private GameObject modelExpoPrefab;
     [SerializeField] private GameObject emptyExpoPrefab;
    
@@ -35,12 +32,10 @@ public class PortalListController : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        debugText.text = gameDataManager.gameData.portals.Count.ToString();
-        gameData = gameDataManager.gameData;
-        qtdPortals = gameData.portals.Count;
+        debugText.text = GameDataManager.gameData.portals.Count.ToString();
+        qtdPortals = GameDataManager.gameData.portals.Count;
         visualizer = GetComponent<VisualizerArController>();        
         LoadPortals();
-
     }
 
     private void LoadPortals()
@@ -75,11 +70,11 @@ public class PortalListController : MonoBehaviour
             instantiatedObject.name = $"Portal: {i + 1}";
             instantiatedObject.PortalName = selectedPortalNameText;
             instantiatedObject.PortalListController = this;
-            firstInstance.portalData = gameData.portals[i];
-            firstInstance.portalPrefab = emptyExpoPrefab;
+            instantiatedObject.portalData = GameDataManager.gameData.portals[i];
+            instantiatedObject.portalPrefab = emptyExpoPrefab;
         }
 
-        debugText.text = $"{portals.Count.ToString()} {qtdPortals}";
+        //debugText.text = $"{portals.Count.ToString()} {qtdPortals}";
         
         return portals;
     }

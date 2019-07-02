@@ -4,12 +4,21 @@ using UnityEngine.UI;
 public class GameDataManager : MonoBehaviour
 {
 
-    [SerializeField]
-    public GameData gameData;
-
+    public static GameData gameData;
+    
         // Start is called before the first frame update
     private void Awake()
     {
+        if (gameData == null)
+        {
+            gameData =  new GameData();
+        }
+        else
+        {
+            Destroy(this);
+            return;
+        }
+        
         Load();
     }
     

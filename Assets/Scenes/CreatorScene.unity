@@ -1173,6 +1173,7 @@ MonoBehaviour:
   moreInfo: {fileID: 658180063}
   emptySprite: {fileID: 9178656088656887591, guid: 33e77a2547b26024bbc66db0ad1acbfd,
     type: 3}
+  DebugText: {fileID: 1522930081}
 --- !u!4 &448403003
 Transform:
   m_ObjectHideFlags: 0
@@ -1540,6 +1541,7 @@ MonoBehaviour:
   preview: {fileID: 9178656088656887591, guid: 33e77a2547b26024bbc66db0ad1acbfd, type: 3}
   createPortalManager: {fileID: 1619200820}
   planeDiscovery: {fileID: 2067936195}
+  DebugText: {fileID: 1522930081}
 --- !u!1 &588167037
 GameObject:
   m_ObjectHideFlags: 0
@@ -3513,10 +3515,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 100
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 102
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -3755,7 +3757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1612448406
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4417,6 +4419,21 @@ PrefabInstance:
     - target: {fileID: 1536853937296922, guid: 26558ae1d2e7243728486d789f984c53, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747870037459092, guid: 26558ae1d2e7243728486d789f984c53,
+        type: 3}
+      propertyPath: PointColor.r
+      value: 0.454902
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747870037459092, guid: 26558ae1d2e7243728486d789f984c53,
+        type: 3}
+      propertyPath: PointColor.g
+      value: 0.17254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747870037459092, guid: 26558ae1d2e7243728486d789f984c53,
+        type: 3}
+      propertyPath: PointColor.b
+      value: 0.6156863
       objectReference: {fileID: 0}
     - target: {fileID: 4205356930328266, guid: 26558ae1d2e7243728486d789f984c53, type: 3}
       propertyPath: m_LocalPosition.x

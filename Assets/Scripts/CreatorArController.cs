@@ -193,10 +193,16 @@ namespace Scripts
             _previewInstance.transform.localScale = Vector3.one / 25f;
         }
 
+        [SerializeField] private Text DebugText;
+
         public void AttachImage()
         {
             _previewInstance.transform.parent = _portalInstance.GetComponentsInChildren<Transform>()[1];
             createPortalManager.AddImage(_previewInstance.GetComponent<SpriteRenderer>().sprite,_previewInstance);
+            DebugText.text = _previewInstance.transform.ToString();
+            DebugText.text += "\n";
+            DebugText.text += _previewInstance.transform.localPosition;
+            
             _previewInstance = Instantiate(preview);
         }
         
