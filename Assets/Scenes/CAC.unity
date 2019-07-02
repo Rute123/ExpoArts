@@ -537,7 +537,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &160382565
 Mesh:
@@ -4234,7 +4234,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 4.0984, z: 24.678844}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1151303349
 GameObject:
@@ -4300,7 +4300,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1268960054
 GameObject:
@@ -4330,7 +4330,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1.164834}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1273670524
 Mesh:
@@ -6210,11 +6210,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619695489}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 30.826906, y: -0.5060619, z: 16.722006}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.30826905, y: -0.005060619, z: 0.16732006}
+  m_LocalScale: {x: 0.01, y: 0.010000001, z: 0.009999999}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 5390724544042757081}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!43 &1718333029
 Mesh:
@@ -6790,11 +6790,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028757259}
   m_LocalRotation: {x: -0.23056887, y: 0.36849216, z: -0.3123883, w: 0.8446687}
-  m_LocalPosition: {x: 25.82, y: -0.91, z: 10.76}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.2582, y: -0.0091, z: 0.107700005}
+  m_LocalScale: {x: 0.01, y: 0.009999999, z: 0.010000003}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 5390724544042757081}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -9.165, y: 50.939003, z: -44.965004}
 --- !u!43 &2036773225
 Mesh:
@@ -7044,11 +7044,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041862683}
   m_LocalRotation: {x: 0.42169112, y: 0.32426104, z: 0.19610658, w: 0.8237558}
-  m_LocalPosition: {x: 40.7, y: 3, z: -11.940001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.407, y: 0.03, z: -0.1193}
+  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.01}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 5390724544042757081}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 34.58, y: 58.183002, z: 46.433002}
 --- !u!43 &2060063153
 Mesh:
@@ -7459,6 +7459,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &5390724544042757081 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5390724544042757081, guid: de49c7aa0438bdb48a8589008eb0e1ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 5390724544261916411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5390724544261916411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7509,7 +7515,7 @@ PrefabInstance:
     - target: {fileID: 5390724544042757081, guid: de49c7aa0438bdb48a8589008eb0e1ae,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5390724544042757081, guid: de49c7aa0438bdb48a8589008eb0e1ae,
         type: 3}
@@ -7910,5 +7916,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1750999012}
+    - target: {fileID: 1369122143, guid: de49c7aa0438bdb48a8589008eb0e1ae, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469672984, guid: de49c7aa0438bdb48a8589008eb0e1ae, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664101290, guid: de49c7aa0438bdb48a8589008eb0e1ae, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 301749544, guid: de49c7aa0438bdb48a8589008eb0e1ae, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de49c7aa0438bdb48a8589008eb0e1ae, type: 3}
