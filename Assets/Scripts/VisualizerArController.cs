@@ -69,7 +69,10 @@ namespace Scripts
         /// </summary>
         private const float k_ModelRotation = 0.0f;
 
-        private bool _portalCreated = false;
+        private bool _portalCreated;
+
+        private GameObject portal;
+        
         [SerializeField] private GameObject clickOnFloorTutorial;
         
         public void SetPrefab(GameObject prefab)
@@ -143,7 +146,7 @@ namespace Scripts
 
 
                 // Instantiate Andy model at the hit pose.
-                var portal = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                portal = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
 
                 // Compensate for the hitPose rotation facing away from the raycast (i.e.
                 // camera).
@@ -175,5 +178,19 @@ namespace Scripts
                 yield return 0;
             }
         }
+
+        public void Reset()
+        {
+            _portalCreated = false;
+            try
+            {
+                Destroy(portal);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+        
     }
 }

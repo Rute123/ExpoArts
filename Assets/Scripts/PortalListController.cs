@@ -29,6 +29,8 @@ public class PortalListController : MonoBehaviour
     [SerializeField] private Text debugText;
 
     private int qtdPortals;
+
+    private IEnumerable<PortalSelector> portals;
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -40,7 +42,7 @@ public class PortalListController : MonoBehaviour
 
     private void LoadPortals()
     {
-        var portals = GetPortalList();
+        portals = GetPortalList();
         portals.First().Select();
 
         var localPosition = portalSelectorParent.localPosition;
@@ -80,6 +82,14 @@ public class PortalListController : MonoBehaviour
     {
         visualizer.SetPrefab(SelectedPortal.portalPrefab);
         visualizer.selectedPortal = SelectedPortal.portalData;
+    }
+
+    public void Reset()
+    {
+        foreach (var portal in portals)
+        {
+            Destroy(portal);
+        }
     }
 
 }
