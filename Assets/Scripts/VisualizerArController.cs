@@ -159,25 +159,19 @@ namespace Scripts
                 StartCoroutine(PlaceArts(portal, selectedPortal));
             }
         }
-
-        [SerializeField] private Text DebugText;
         
         public IEnumerator PlaceArts(GameObject root, Portal portal)
         {
-            DebugText.text = "Empty arts";
-            DebugText.text = JsonUtility.ToJson(portal);
             var expoTransform = root.GetComponentsInChildren<Transform>()[1];
             foreach (var art in portal.arts)
             {
                 var emptySpriteInstance = Instantiate(emptySprite, expoTransform);
                 emptySpriteInstance.transform.localPosition = art.GetPosition();
-//                emptySpriteInstance.transform.localPosition = new Vector3(1,1, -1);
                 emptySpriteInstance.transform.localRotation = art.GetRotation();
-//                emptySpriteInstance.transform.localRotation = new Quaternion();
+                emptySpriteInstance.transform.localScale = art.GetScale();
                 
                 var spriteRenderer = emptySpriteInstance.GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = art.Sprite;
-                DebugText.text += emptySpriteInstance.transform.ToString();
                 yield return 0;
             }
         }

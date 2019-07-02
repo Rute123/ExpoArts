@@ -137,7 +137,7 @@ public class CreatePortalManager : MonoBehaviour
     public void AddImage(Sprite sprite, GameObject spriteGameObject)
     {
         TempPortal.arts.Add(new Picture(spriteGameObject.transform.localPosition,
-            spriteGameObject.transform.localRotation,
+            spriteGameObject.transform.localRotation, spriteGameObject.transform.localScale,
             sprite));
     }
 

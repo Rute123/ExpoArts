@@ -16,6 +16,9 @@ public class Picture
     public float rotationY;
     public float rotationZ;
     public float rotationW;
+    public float scaleX;
+    public float scaleY;
+    public float scaleZ;
     public string image;
     
     public Sprite Sprite
@@ -30,7 +33,7 @@ public class Picture
         set => image = Convert.ToBase64String(value.texture.EncodeToPNG());
     }
     
-    public Picture(Vector3 position, Quaternion rotation)
+    public Picture(Vector3 position, Quaternion rotation, Vector3 scale)
     {
         x = position.x;
         y = position.y;
@@ -39,14 +42,17 @@ public class Picture
         rotationY = rotation.y;
         rotationZ = rotation.z;
         rotationW = rotation.w;
+        scaleX = scale.x;
+        scaleY = scale.y;
+        scaleZ = scale.z;
     }
     
-    public Picture(Vector3 position, Quaternion rotation, Sprite sprite) : this(position, rotation)
+    public Picture(Vector3 position, Quaternion rotation, Vector3 scale, Sprite sprite) : this(position, rotation, scale)
     {
         Sprite = sprite;
     }
 
-    public Picture(Vector3 position, Quaternion rotation, Sprite sprite, long id) : this(position, rotation, sprite)
+    public Picture(Vector3 position, Quaternion rotation, Vector3 scale, Sprite sprite, long id) : this(position, rotation, scale, sprite)
     {
         this.id = id;
     }
@@ -59,5 +65,10 @@ public class Picture
     public Quaternion GetRotation()
     {
         return new Quaternion(rotationX, rotationY, rotationZ, rotationW);
+    }
+
+    public Vector3 GetScale()
+    {
+        return new Vector3(scaleX, scaleY, scaleZ);
     }
 }

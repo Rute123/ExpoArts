@@ -62,7 +62,6 @@ public class PortalListController : MonoBehaviour
         firstInstance.portalData = new Portal(baseWidth, baseHeight);
         firstInstance.portalPrefab = modelExpoPrefab;
         
-        Debug.Log(qtdPortals);
         for (var i = 0; i < qtdPortals; i++)
         {
             var instantiatedObject = Instantiate(portalSelectorPrefab, portalSelectorParent);
@@ -73,15 +72,12 @@ public class PortalListController : MonoBehaviour
             instantiatedObject.portalData = GameDataManager.gameData.portals[i];
             instantiatedObject.portalPrefab = emptyExpoPrefab;
         }
-
-        //debugText.text = $"{portals.Count.ToString()} {qtdPortals}";
         
         return portals;
     }
 
     public void SelectPortal()
     {
-        Debug.Log(JsonUtility.ToJson(SelectedPortal));
         visualizer.SetPrefab(SelectedPortal.portalPrefab);
         visualizer.selectedPortal = SelectedPortal.portalData;
     }

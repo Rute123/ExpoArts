@@ -1130,7 +1130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b67ac6a07ec49b44ad6fa92aad5fec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDataManager: {fileID: 806747937}
   modelExpoPrefab: {fileID: 5390724544042757093, guid: de49c7aa0438bdb48a8589008eb0e1ae,
     type: 3}
   emptyExpoPrefab: {fileID: 2886668802961344976, guid: 41267b811cba09f429742d3e14df0b6c,
@@ -1173,7 +1172,6 @@ MonoBehaviour:
   moreInfo: {fileID: 658180063}
   emptySprite: {fileID: 9178656088656887591, guid: 33e77a2547b26024bbc66db0ad1acbfd,
     type: 3}
-  DebugText: {fileID: 1522930081}
 --- !u!4 &448403003
 Transform:
   m_ObjectHideFlags: 0
@@ -1541,7 +1539,6 @@ MonoBehaviour:
   preview: {fileID: 9178656088656887591, guid: 33e77a2547b26024bbc66db0ad1acbfd, type: 3}
   createPortalManager: {fileID: 1619200820}
   planeDiscovery: {fileID: 2067936195}
-  DebugText: {fileID: 1522930081}
 --- !u!1 &588167037
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,8 +2186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf299f1b729d5c4fa3439d374e53af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData:
-    portals: []
 --- !u!1 &855497558
 GameObject:
   m_ObjectHideFlags: 0
@@ -3757,7 +3752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1612448406
 RectTransform:
   m_ObjectHideFlags: 0
