@@ -13,6 +13,7 @@ public class AppManager : MonoBehaviour
     [SerializeField] private GameObject creatorController;
     [SerializeField] private GameObject visualizerController;
     [SerializeField] private GameObject visualizerHud;
+    [SerializeField] private GameObject listPortalPanel;
     
     // Start is called before the first frame update
     private void Awake()
@@ -23,6 +24,7 @@ public class AppManager : MonoBehaviour
         creatorController.SetActive(false);
         visualizerHud.SetActive(false);
         visualizerController.SetActive(false);
+        listPortalPanel.SetActive(false);
         Invoke(nameof(EnableMainMenu), 3);
     }
 
@@ -34,6 +36,7 @@ public class AppManager : MonoBehaviour
         creatorController.SetActive(false);
         visualizerHud.SetActive(false);
         visualizerController.SetActive(false);
+        listPortalPanel.SetActive(false);
     }
 
     public void EnableVisualizationMode()
@@ -42,6 +45,7 @@ public class AppManager : MonoBehaviour
         visualizerHud.SetActive(true);
         mainMenu.SetActive(false);
         visualizerController.SetActive(true);
+        listPortalPanel.SetActive(true);
     }
 
     public void EnableCreateMode()
@@ -50,6 +54,7 @@ public class AppManager : MonoBehaviour
         mainMenu.SetActive(false);
         creatorMenu.SetActive(true);
         visualizerController.SetActive(false);
+        listPortalPanel.SetActive(false);
     }
 
 }

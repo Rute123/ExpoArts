@@ -2160,6 +2160,7 @@ MonoBehaviour:
   creatorController: {fileID: 577930477}
   visualizerController: {fileID: 448402999}
   visualizerHud: {fileID: 1525185666}
+  listPortalPanel: {fileID: 1736382463}
 --- !u!4 &806747936
 Transform:
   m_ObjectHideFlags: 0
